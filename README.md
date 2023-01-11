@@ -1,0 +1,3 @@
+- Users should be able to create a ticket
+- DTO - Data Transfer Object
+- transfer an object outside the system/ to receive an object from outside the system
