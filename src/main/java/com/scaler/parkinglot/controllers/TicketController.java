@@ -2,6 +2,7 @@ package com.scaler.parkinglot.controllers;
 
 import com.scaler.parkinglot.dtos.CreateTicketRequestDto;
 import com.scaler.parkinglot.dtos.CreateTicketResponseDto;
+import com.scaler.parkinglot.exceptions.NoAvailableParkingSpotException;
 import com.scaler.parkinglot.models.Ticket;
 import com.scaler.parkinglot.services.TicketService;
 
@@ -13,14 +14,21 @@ public class TicketController {
     }
 
     public CreateTicketResponseDto createTicket(CreateTicketRequestDto request) {
-        Ticket ticket = ticketService.createTicket(
-                request.getVehicle(),
-                request.getGate()
-        );
+        try {
+            Ticket ticket = ticketService.createTicket(
+                    request.getVehicle(),
+                    request.getGate()
+            );
 
-        CreateTicketResponseDto response = new CreateTicketResponseDto();
-        response.setTicket(ticket);
+            CreateTicketResponseDto response = new CreateTicketResponseDto();
+            response.setTicket(ticket);
 
-        return response;
+            return response;
+        } catch (NoAvailableParkingSpotException exception) {
+            CreateTicketResponseDto response = new CreateTicketResponseDto();
+            response.setMessage("No spot available");
+        }
+
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.scaler.parkinglot.services;
 
+import com.scaler.parkinglot.exceptions.NoAvailableParkingSpotException;
 import com.scaler.parkinglot.models.*;
 import com.scaler.parkinglot.repositories.ParkingLotRepository;
 import com.scaler.parkinglot.repositories.ParkingSpotRepository;
@@ -25,7 +26,7 @@ public class TicketService {
         this.parkingSpotRepository = parkingSpotRepository;
     }
 
-    public Ticket createTicket(Vehicle vehicle, Gate gate) {
+    public Ticket createTicket(Vehicle vehicle, Gate gate) throws NoAvailableParkingSpotException {
 //        private Date entryTime;
 //        private Operator operator;
 //        private Gate gate;
